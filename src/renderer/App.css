@@ -1,7 +1,14 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+// Define
+.hidden{
+  display: none;
+}
+
 body {
   position: relative;
   color: white;
@@ -11,17 +18,20 @@ body {
     #fedc2a -29.09%,
     #dd5789 51.77%,
     #7a2c9e 129.35%
-  );
+    );
   font-family: sans-serif;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 button {
+  width: 40%;
+  margin: 5px 0px;
   background-color: white;
-  padding: 10px 20px;
+  padding: 20px 10px;
   border-radius: 10px;
   border: none;
   appearance: none;
@@ -31,10 +41,11 @@ button {
   transition: all ease-in 0.1s;
   cursor: pointer;
   opacity: 0.9;
+  outline: none;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   opacity: 1;
 }
 
@@ -54,9 +65,19 @@ a:hover {
   text-decoration: none;
 }
 
-.Hello {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+#root{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
+
+.warper{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
