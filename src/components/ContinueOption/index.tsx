@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
 import Button from 'UI/Button';
-import { decrypt } from 'functions';
+import { decrypt } from 'utils/saveFile';
 import React from 'react';
 import { Link } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 import Button from 'UI/Button';
-import { encrypt, saveFile } from 'functions';
+import { encrypt, saveFile } from 'utils/saveFile';
 
 interface cell {
   value: number;

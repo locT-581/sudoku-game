@@ -5,9 +5,11 @@ function NewGameOption() {
   return (
     <div className="warper">
       <Link to="/">x</Link>
-      <Button>
-        <p>Auto</p>
-      </Button>
+      <Link to="/main">
+        <Button>
+          <p>Auto</p>
+        </Button>
+      </Link>
       <Button>
         <Link to="/newgame-option/input-type">Nhập các số</Link>
       </Button>

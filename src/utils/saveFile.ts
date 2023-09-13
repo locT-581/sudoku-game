@@ -1,6 +1,7 @@
 import CryptoJS, { AES } from 'crypto-js';
 
 const key = 'sudoku';
+
 export const saveFile = async (blob: any) => {
   const a = document.createElement('a');
   const date = new Date();
