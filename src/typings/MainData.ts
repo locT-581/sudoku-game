@@ -4,6 +4,10 @@ export interface MainData {
   note?: number[];
 }
 
+export interface SolveSudoku {
+  grid: MainData[][];
+  solved: boolean;
+}
 export interface TableType {
   matrix: MainData[][];
   numberOfRow: number;
@@ -11,6 +15,7 @@ export interface TableType {
 
   fillValues(): void;
   removeKDigits(k: number): MainData[][];
+  solveSudoku(): SolveSudoku;
 }
 
 export interface InitState {

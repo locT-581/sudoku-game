@@ -1,4 +1,4 @@
-import { MainData, TableType } from 'typings/MainData';
+import { MainData, SolveSudoku, TableType } from 'typings/MainData';
 /* eslint-disable no-param-reassign, no-plusplus */
 
 function randomGenerator(num: number) {
@@ -150,6 +150,50 @@ class SudokuTable implements TableType {
     }
     return newMatrix;
   }
+
+  solveSudoku(): SolveSudoku {
+    const n = this.matrix[0].length;
+    let newGird: MainData[][] = [];
+    newGird = this.matrix.concat();
+    for (let row = 0; row < n; row++) {
+      for (let col = 0; col < n; col++) {
+        if (newGird[row][col].value === 0) {
+          // Empty cell, try filling it with numbers 1 to n
+          for (let num = 1; num <= n; num++) {
+            if (this.checkIfSafe(row, col, num)) {
+              // Place the number in the empty cell
+              newGird[row][col].value = num;
+              // Recursively solve the rest of the newGird
+              if (this.solveSudoku()) {
+                return { grid: newGird, solved: true };
+              }
+              // Failed to find a solution, backtrack and try a different number
+              newGird[row][col].value = 0;
+            }
+          }
+          // Unable to solve the Sudoku puzzle
+          return { grid: newGird, solved: false };
+        }
+      }
+    }
+    // Sudoku puzzle solved (no empty cells remaining)
+    return { grid: newGird, solved: true };
+  }
 }
 
 export default SudokuTable;
+
+export function printSudoku(table: MainData[][]) {
+  // Number of elements in each row
+  const N: number = table[0] ? table[0].length : 0;
+  let str: string = '';
+  for (let i = 0; i < N; i++) {
+    for (let j = 0; j < N; j++) {
+      // eslint-disable-next-line prefer-template
+      str += table[i][j].value.toString() + ' ';
+    }
+    console.log(str);
+    str = '';
+  }
+  console.log('-----------------');
+}
