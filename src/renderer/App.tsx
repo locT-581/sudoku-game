@@ -9,6 +9,7 @@ import Score from 'components/Score';
 import Setting from 'components/Setting';
 import InputType from 'components/NewgameOption/InputType';
 import Exit from 'components/Exit';
+import Level from 'components/NewgameOption/Level';
 
 // import lazy
 
@@ -17,7 +18,8 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/main" element={<Game />} />
+        <Route path="/main-level" element={<Level />} />
+        <Route path="/main/:level" element={<Game />} />
         <Route path="/continue-option" element={<ContinueOption />} />
         <Route path="/newgame-option" element={<NewGameOption />} />
         <Route path="/newgame-option/input-type" element={<InputType />} />

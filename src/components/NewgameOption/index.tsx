@@ -5,7 +5,7 @@ function NewGameOption() {
   return (
     <div className="warper">
       <Link to="/">x</Link>
-      <Link to="/main">
+      <Link to="/main-level">
         <Button>
           <p>Auto</p>
         </Button>

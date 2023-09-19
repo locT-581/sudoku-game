@@ -1,7 +1,6 @@
 import CryptoJS, { AES } from 'crypto-js';
 
 const key = 'sudoku';
-
 export const saveFile = async (blob: any) => {
   const a = document.createElement('a');
   const date = new Date();
@@ -17,8 +16,8 @@ export const saveFile = async (blob: any) => {
     setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
   });
   a.click();
+  console.log('File saved');
 };
-
 export const encrypt = (rawFile: string): string => {
   const encrypted = AES.encrypt(rawFile, key).toString();
   return encrypted;

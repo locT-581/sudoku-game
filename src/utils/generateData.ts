@@ -13,18 +13,21 @@ class SudokuTable implements TableType {
 
   SRN: number;
 
-  constructor(numberOfRow: number = 9) {
+  constructor(numberOfRow: number = 9, matrix: MainData[][] | null = null) {
     this.numberOfRow = numberOfRow;
 
     const SRNd = Math.sqrt(numberOfRow);
     this.SRN = Math.floor(SRNd);
 
-    this.matrix = Array.from({ length: numberOfRow }, () =>
-      Array.from({ length: numberOfRow }, () => ({
-        value: 0,
-        isFilledCell: true,
-      }))
-    );
+    if (!matrix || matrix.length === 0) {
+      this.matrix = Array.from({ length: numberOfRow }, () =>
+        Array.from({ length: numberOfRow }, () => ({
+          value: 0,
+          isFilledCell: true,
+          isActive: false,
+        }))
+      );
+    } else this.matrix = matrix;
   }
 
   emptyMatrix(): void {
@@ -32,49 +35,70 @@ class SudokuTable implements TableType {
       Array.from({ length: this.numberOfRow }, () => ({
         value: 0,
         isFilledCell: true,
+        isActive: false,
       }))
     );
   }
 
-  // check in the row for existence
-  unUsedInRow(i: number, num: number): boolean {
-    for (let j = 0; j < this.numberOfRow; j++) {
-      if (this.matrix[i][j].value === num) {
-        return false;
-      }
+  /**
+   * Edit matrix after checking if safe
+   * @param i
+   * @param j
+   * @param value
+   * @returns -1 if edited, [i, j] if not safe
+   */
+  editMatrix(i: number, j: number, value: number): number | number[] {
+    const checker = this.checkIfSafe(i, j, value);
+    console.log(checker);
+    // checher === -1 => valid
+    if (checker === -1) {
+      this.matrix[i][j].value = value;
+      return -1;
     }
-    return true;
+    return checker;
+  }
+
+  // check in the row for existence
+  unUsedInRow(i: number, num: number): number | number[] {
+    for (let j = 0; j < this.numberOfRow; j++)
+      if (this.matrix[i][j].value === num) return [i, j];
+    return -1;
   }
 
   // check in the col for existence
-  unUsedInCol(j: number, num: number): boolean {
-    for (let i = 0; i < this.numberOfRow; i++) {
-      if (this.matrix[i][j].value === num) {
-        return false;
-      }
-    }
-    return true;
+  unUsedInCol(j: number, num: number): number | number[] {
+    for (let i = 0; i < this.numberOfRow; i++)
+      if (this.matrix[i][j].value === num) return [i, j];
+    return -1;
   }
 
   // Returns false if given 3 x 3 block contains num.
-  unUsedInBox(rowStart: number, colStart: number, num: number): boolean {
-    for (let i = 0; i < this.SRN; i++) {
-      for (let j = 0; j < this.SRN; j++) {
-        if (this.matrix[rowStart + i][colStart + j].value === num) {
-          return false;
-        }
-      }
-    }
-    return true;
+  unUsedInBox(
+    rowStart: number,
+    colStart: number,
+    num: number
+  ): number | number[] {
+    for (let i = 0; i < this.SRN; i++)
+      for (let j = 0; j < this.SRN; j++)
+        if (this.matrix[rowStart + i][colStart + j].value === num)
+          return [i, j];
+    return -1;
   }
 
-  // Check if safe to put in cell
-  checkIfSafe(i: number, j: number, num: number): boolean {
-    return (
-      this.unUsedInRow(i, num) &&
-      this.unUsedInCol(j, num) &&
-      this.unUsedInBox(i - (i % this.SRN), j - (j % this.SRN), num)
-    );
+  /**
+   * Check if safe to put in cell
+   * @param i
+   * @param j
+   * @param num
+   * @returns -1 if safe, [i, j] if not safe
+   */
+  checkIfSafe(i: number, j: number, num: number): number | number[] {
+    if (this.unUsedInRow(i, num) !== -1) return this.unUsedInRow(i, num);
+    if (this.unUsedInCol(j, num) !== -1) return this.unUsedInCol(j, num);
+    if (this.unUsedInBox(i - (i % this.SRN), j - (j % this.SRN), num) !== -1)
+      return this.unUsedInBox(i - (i % this.SRN), j - (j % this.SRN), num);
+
+    return -1;
   }
 
   // Fill a 3 x 3 matrix.
@@ -82,27 +106,29 @@ class SudokuTable implements TableType {
     let num = 0;
     for (let i = 0; i < this.SRN; i++) {
       for (let j = 0; j < this.SRN; j++) {
-        while (!this.unUsedInBox(row, col, num)) {
+        while (this.unUsedInBox(row, col, num) !== -1) {
           num = randomGenerator(this.numberOfRow);
         }
-        this.matrix[row + i][col + j] = { value: num, isFilledCell: true };
+        this.matrix[row + i][col + j] = {
+          value: num,
+          isFilledCell: true,
+          isActive: false,
+        };
       }
     }
   }
 
   // Fill Diagonal
   fillDiagonal(): void {
-    for (let i = 0; i < this.numberOfRow; i += this.SRN) {
+    for (let i = 0; i < this.numberOfRow; i += this.SRN)
       // for diagonal box, start coordinates->i==j
       this.fillBox(i, i);
-    }
   }
 
   // A recursive function to fill remaining matrix
   fillRemaining(i: number, j: number): boolean {
     // Check if we have reached the end of the matrix
     if (i === this.numberOfRow - 1 && j === this.numberOfRow) return true;
-
     // Move to the next row if we have reached the end of the current row
     if (j === this.numberOfRow) {
       i += 1;
@@ -114,7 +140,7 @@ class SudokuTable implements TableType {
     }
     // Try filling the current cell with a valid value
     for (let num = 1; num <= this.numberOfRow; num++) {
-      if (this.checkIfSafe(i, j, num)) {
+      if (this.checkIfSafe(i, j, num) === -1) {
         this.matrix[i][j].value = num;
         if (this.fillRemaining(i, j + 1)) {
           return true;
@@ -160,11 +186,11 @@ class SudokuTable implements TableType {
         if (newGird[row][col].value === 0) {
           // Empty cell, try filling it with numbers 1 to n
           for (let num = 1; num <= n; num++) {
-            if (this.checkIfSafe(row, col, num)) {
+            if (this.checkIfSafe(row, col, num) === -1) {
               // Place the number in the empty cell
               newGird[row][col].value = num;
               // Recursively solve the rest of the newGird
-              if (this.solveSudoku()) {
+              if (this.solveSudoku().solved) {
                 return { grid: newGird, solved: true };
               }
               // Failed to find a solution, backtrack and try a different number

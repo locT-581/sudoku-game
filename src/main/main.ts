@@ -9,7 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -23,11 +23,11 @@ class AppUpdater {
   }
 }
 
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
+  console.log('main: ', msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
@@ -94,6 +94,24 @@ const createWindow = async () => {
     }
   });
 
+  mainWindow.on('close', (e) => {
+    if (mainWindow) {
+      const choice = dialog.showMessageBoxSync(mainWindow, {
+        type: 'question',
+        title: '  Sudoku  ',
+        message: 'Do you want to save this game to your computer?',
+        buttons: ['Save', "Don't Save", 'Cancel'],
+      });
+      if (choice === 0) {
+        e.preventDefault();
+        mainWindow.webContents.send('save-file');
+        app.quit();
+      } else if (choice === 2) {
+        e.preventDefault();
+      }
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -116,7 +134,7 @@ const createWindow = async () => {
  * Add event listeners...
  */
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
   if (process.platform !== 'darwin') {
