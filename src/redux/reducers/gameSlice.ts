@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { InitState } from 'typings/MainData.js';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { InitState, MainData } from 'typings/MainData.js';
+// import SudokuTable from 'utils/generateData';
 
 const initialState: InitState = {
-  data: [],
+  matrix: [],
   isCounting: false,
 };
 
 const gameSlice = createSlice({
   name: 'game',
   initialState,
-
   reducers: {
-    updateData: (state, action) => {
-      state.data = action.payload;
+    updateData: (state, action: PayloadAction<MainData[][]>) => {
+      state.matrix = action.payload;
     },
     startCounting: (state) => {
       state.isCounting = true;
@@ -28,4 +28,5 @@ const gameSlice = createSlice({
 
 const { actions, reducer } = gameSlice;
 export const { clearError, updateData, startCounting, stopCounting } = actions;
+// export const selectData = (state: RootState) => state.game.data;
 export default reducer;

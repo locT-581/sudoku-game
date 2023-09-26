@@ -10,9 +10,12 @@ import Setting from 'components/Setting';
 import InputType from 'components/NewgameOption/InputType';
 import Exit from 'components/Exit';
 import Level from 'components/NewgameOption/Level';
+import Input from 'components/Input';
+import { RootState } from 'redux/store';
+import { useAppSelector } from 'redux/hook';
+import { useEffect } from 'react';
 
 // import lazy
-
 export default function App() {
   return (
     <Router>
@@ -20,9 +23,14 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/main-level" element={<Level />} />
         <Route path="/main/:level" element={<Game />} />
+        <Route path="/typemode" element={<Game />} />
         <Route path="/continue-option" element={<ContinueOption />} />
         <Route path="/newgame-option" element={<NewGameOption />} />
         <Route path="/newgame-option/input-type" element={<InputType />} />
+        <Route
+          path="/newgame-option/input-type/input-eachcell"
+          element={<Input />}
+        />
         <Route path="/score" element={<Score />} />
         <Route path="/confirm-exit" element={<Exit />} />
         <Route path="/setting" element={<Setting />} />

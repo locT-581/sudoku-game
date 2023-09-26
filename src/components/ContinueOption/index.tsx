@@ -21,7 +21,6 @@ function ContinueOption() {
       reader.onload = (event) => {
         const data = event.target?.result;
         setRawData(data as string);
-        // console.log(typeof data);
       };
       reader.readAsText(file);
     }

@@ -1,5 +1,5 @@
-import { MainData, SolveSudoku, TableType } from 'typings/MainData';
 /* eslint-disable no-param-reassign, no-plusplus */
+import { MainData, TableType } from 'typings/MainData';
 
 function randomGenerator(num: number) {
   // eslint-disable-next-line no-bitwise
@@ -23,8 +23,7 @@ class SudokuTable implements TableType {
       this.matrix = Array.from({ length: numberOfRow }, () =>
         Array.from({ length: numberOfRow }, () => ({
           value: 0,
-          isFilledCell: true,
-          isActive: false,
+          isFilledCell: false,
         }))
       );
     } else this.matrix = matrix;
@@ -35,7 +34,6 @@ class SudokuTable implements TableType {
       Array.from({ length: this.numberOfRow }, () => ({
         value: 0,
         isFilledCell: true,
-        isActive: false,
       }))
     );
   }
@@ -47,13 +45,24 @@ class SudokuTable implements TableType {
    * @param value
    * @returns -1 if edited, [i, j] if not safe
    */
-  editMatrix(i: number, j: number, value: number): number | number[] {
-    const checker = this.checkIfSafe(i, j, value);
-    console.log(checker);
-    // checher === -1 => valid
-    if (checker === -1) {
+  editMatrix(
+    i: number,
+    j: number,
+    value: number,
+    isFilledCell: boolean
+  ): number | number[] {
+    let checker: number | number[] = -1;
+    if (value === 0) {
       this.matrix[i][j].value = value;
-      return -1;
+      this.matrix[i][j].isFilledCell = isFilledCell;
+    } else {
+      checker = this.checkIfSafe(i, j, value);
+      // checker === -1 => valid
+      if (checker === -1) {
+        this.matrix[i][j].value = value;
+        this.matrix[i][j].isFilledCell = isFilledCell;
+        return -1;
+      }
     }
     return checker;
   }
@@ -80,8 +89,9 @@ class SudokuTable implements TableType {
   ): number | number[] {
     for (let i = 0; i < this.SRN; i++)
       for (let j = 0; j < this.SRN; j++)
-        if (this.matrix[rowStart + i][colStart + j].value === num)
-          return [i, j];
+        if (this.matrix[rowStart + i][colStart + j].value === num) {
+          return [rowStart + i, colStart + j];
+        }
     return -1;
   }
 
@@ -93,10 +103,16 @@ class SudokuTable implements TableType {
    * @returns -1 if safe, [i, j] if not safe
    */
   checkIfSafe(i: number, j: number, num: number): number | number[] {
-    if (this.unUsedInRow(i, num) !== -1) return this.unUsedInRow(i, num);
-    if (this.unUsedInCol(j, num) !== -1) return this.unUsedInCol(j, num);
-    if (this.unUsedInBox(i - (i % this.SRN), j - (j % this.SRN), num) !== -1)
-      return this.unUsedInBox(i - (i % this.SRN), j - (j % this.SRN), num);
+    const rowChecker = this.unUsedInRow(i, num);
+    if (rowChecker !== -1) return rowChecker;
+    const colChecker = this.unUsedInCol(j, num);
+    if (colChecker !== -1) return colChecker;
+    const boxChecker = this.unUsedInBox(
+      i - (i % this.SRN),
+      j - (j % this.SRN),
+      num
+    );
+    if (boxChecker !== -1) return boxChecker;
 
     return -1;
   }
@@ -112,7 +128,6 @@ class SudokuTable implements TableType {
         this.matrix[row + i][col + j] = {
           value: num,
           isFilledCell: true,
-          isActive: false,
         };
       }
     }
@@ -175,35 +190,6 @@ class SudokuTable implements TableType {
       }
     }
     return newMatrix;
-  }
-
-  solveSudoku(): SolveSudoku {
-    const n = this.matrix[0].length;
-    let newGird: MainData[][] = [];
-    newGird = this.matrix.concat();
-    for (let row = 0; row < n; row++) {
-      for (let col = 0; col < n; col++) {
-        if (newGird[row][col].value === 0) {
-          // Empty cell, try filling it with numbers 1 to n
-          for (let num = 1; num <= n; num++) {
-            if (this.checkIfSafe(row, col, num) === -1) {
-              // Place the number in the empty cell
-              newGird[row][col].value = num;
-              // Recursively solve the rest of the newGird
-              if (this.solveSudoku().solved) {
-                return { grid: newGird, solved: true };
-              }
-              // Failed to find a solution, backtrack and try a different number
-              newGird[row][col].value = 0;
-            }
-          }
-          // Unable to solve the Sudoku puzzle
-          return { grid: newGird, solved: false };
-        }
-      }
-    }
-    // Sudoku puzzle solved (no empty cells remaining)
-    return { grid: newGird, solved: true };
   }
 }
 

@@ -1,6 +1,5 @@
 export interface MainData {
   value: number;
-  isActive: boolean;
   isFilledCell: boolean;
   note?: number[];
 }
@@ -12,15 +11,20 @@ export interface TableType {
   matrix: MainData[][];
   numberOfRow: number;
   SRN: number;
-
+  emptyMatrix(): void;
   checkIfSafe(i: number, j: number, num: number): number | number[];
   fillValues(): void;
-  editMatrix(i: number, j: number, value: number): number | number[];
+  editMatrix(
+    i: number,
+    j: number,
+    value: number,
+    isFilledCell?: boolean
+  ): number | number[];
   removeKDigits(k: number): MainData[][];
 }
 
 export interface InitState {
-  data: TableType;
+  matrix: MainData[][];
   isCounting: boolean;
   error?: string;
 }

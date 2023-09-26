@@ -28,10 +28,8 @@
     "*.{css,sass,scss}.d.ts": true
   },
   "commentTranslate.multiLineMerge": true,
-  "cSpell.words": [
-    "newgame"
-  ],
+  "cSpell.words": ["newgame", "typemanually", "typemode"],
   "commentTranslate.targetLanguage": "vi",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
