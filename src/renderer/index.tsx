@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store';
+import { encrypt, saveFile } from 'utils/saveFile';
+
 import App from './App';
 
 const container = document.getElementById('root') as HTMLElement;
@@ -11,12 +13,18 @@ root.render(
   </Provider>
 );
 
-window.electron.ipcRenderer.on('save-file', (event) => {
-  console.log('save-file ', event);
-  document.getElementById('save')?.click();
-  // Xử lý gửi một yêu cầu đến App kêu đưa 'blob', sau đó đợi phản hồi
-  // và truyền vào hàm blob
-  // saveFile(blob);
+window.electron.ipcRenderer.on('save-file', () => {
+  // get data from local storage
+  const data = localStorage.getItem('data');
+  const matrix = data ? JSON.parse(data) : [];
+  if (matrix.length === 0) {
+    console.log('No data to save');
+    return;
+  }
+  const blob = new Blob([encrypt(JSON.stringify(matrix, null))], {
+    type: 'text/plain',
+  });
+  saveFile(blob);
 });
 
 // calling IPC exposed from preload script

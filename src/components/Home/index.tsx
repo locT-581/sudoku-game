@@ -3,43 +3,22 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 import Button from 'UI/Button';
 import { encrypt, saveFile } from 'utils/saveFile';
+import { useAppSelector } from 'redux/hook';
+import { RootState } from 'redux/store';
 
-interface cell {
-  value: number;
-  isQuestion: boolean;
-  note: number[];
-}
 function Home() {
-  // A table have 9 rows and 9 columns
-  const table: cell[][] = [
-    [
-      {
-        value: 3,
-        isQuestion: true,
-        note: [],
-      },
-      {
-        value: 0,
-        isQuestion: false,
-        note: [],
-      },
-    ],
-    [
-      {
-        value: 6,
-        isQuestion: false,
-        note: [],
-      },
-      {
-        value: 1,
-        isQuestion: true,
-        note: [],
-      },
-    ],
-  ];
-  const blob = new Blob([encrypt(JSON.stringify(table, null))], {
-    type: 'application/json',
-  });
+  const { matrix } = useAppSelector((state: RootState) => state.gameSlice);
+  const handleSaveFile = () => {
+    console.log('save file, in save file');
+    if (matrix.length === 0) {
+      console.log('No data to save');
+      return;
+    }
+    const blob = new Blob([encrypt(JSON.stringify(matrix, null))], {
+      type: 'application/json',
+    });
+    saveFile(blob);
+  };
 
   // { type: "text/plain" }
 
@@ -62,9 +41,10 @@ function Home() {
       </p>
       {
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-        <div id="save" onClick={() => saveFile(blob)}>
+        <div id="save" onClick={handleSaveFile}>
           save file
         </div>
+        // style={{ display: 'none' }}
       }
     </div>
   );

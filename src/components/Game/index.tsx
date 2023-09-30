@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prefer-template */
@@ -10,11 +11,12 @@ import Button from 'UI/Button';
 import { MainData, TableType } from 'typings/MainData';
 import SudokuTable, { printSudoku } from 'utils/generateData';
 import { Difficulty } from 'enum';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import solveSudoku from 'utils/solverSudoku';
-import { useAppSelector } from 'redux/hook';
+import { useAppDispatch, useAppSelector } from 'redux/hook';
 import { RootState } from 'redux/store';
 import CustomTable from 'UI/CustomTable';
+import { updateData } from 'redux/reducers/gameSlice';
 
 interface CoordinatesWrongCell {
   row: number;
@@ -23,6 +25,7 @@ interface CoordinatesWrongCell {
 }
 
 function Game() {
+  const dispatch = useAppDispatch();
   const { matrix } = useAppSelector((state: RootState) => state.gameSlice);
   const { level } = useParams();
 
@@ -33,6 +36,8 @@ function Game() {
   const [wrongCell, setWrongCell] = useState<CoordinatesWrongCell[]>([]);
 
   useEffect(() => {
+    // Set data in localStorage = ''
+    localStorage.setItem('data', '');
     if (matrix.length > 0 && level === 'NONE') {
       // Copy raw sudoku to sudokuRemoved
       for (let i = 0; i < 9; i++) {
@@ -76,6 +81,25 @@ function Game() {
     });
   }, [wrongCell]);
 
+  useEffect(() => {
+    // printSudoku(tableSudoku, '84/Game');
+    // Copy a newTableSudoku from tableSudoku
+    const newTableSudoku: MainData[][] = [];
+    if (tableSudoku.length === 0) return;
+    for (let i = 0; i < 9; i++) {
+      newTableSudoku[i] = [];
+      for (let j = 0; j < 9; j++) {
+        newTableSudoku[i][j] = {
+          value: tableSudoku[i][j].value,
+          isFilledCell: tableSudoku[i][j].isFilledCell,
+        };
+      }
+    }
+    // Update sudokuUserPlay.current.matrix to localStorage
+    localStorage.setItem('data', JSON.stringify(newTableSudoku));
+    // Update data in redux
+    dispatch(updateData(newTableSudoku));
+  }, [tableSudoku]);
   const handleRestart = () => {
     // Reset wrongCell
     setWrongCell([]);
@@ -210,7 +234,8 @@ function Game() {
         sudokuUserPlay.current.editMatrix(
           Number(row),
           Number(col),
-          Number(e.target.value)
+          Number(e.target.value),
+          false
         );
         e.target.classList.remove('wrong-cell');
         e.target.setAttribute('disabled', 'true');
@@ -264,6 +289,11 @@ function Game() {
                   >
                     {cell.isFilledCell ? (
                       cell.value
+                    ) : matrix.length > 0 &&
+                      matrix[i][j].value !== 0 &&
+                      !matrix[i][j].isFilledCell ? (
+                      // Handle last game, (if user had filled some cell)
+                      matrix[i][j].value
                     ) : (
                       <input
                         pattern="[1-9]{1}"
@@ -288,6 +318,11 @@ function Game() {
         <Button onClick={handleSolve}>
           <p>Solve</p>
         </Button>
+        <Link to="/">
+          <Button>
+            <p>Home</p>
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'redux/hook';
 import { updateData } from 'redux/reducers/gameSlice';
 import { MainData } from 'typings/MainData';
-import { checkData } from 'utils/checkAndStandardizeSata';
+import checkStringDataAndConvertToMainData from 'utils/checkAndStandardizeSata';
 import SudokuTable from 'utils/generateData';
 import solveSudoku from 'utils/solverSudoku';
 
@@ -25,7 +25,7 @@ function InputType() {
       inputRef.current.value = '';
     }
     if (rawData === '') return;
-    const table = checkData(rawData);
+    const table = checkStringDataAndConvertToMainData(rawData);
     if (typeof table !== 'boolean') {
       const sudoku = new SudokuTable(9, table);
       let tableSudokuTemp: MainData[][] = [];

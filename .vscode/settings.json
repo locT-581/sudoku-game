@@ -28,7 +28,7 @@
     "*.{css,sass,scss}.d.ts": true
   },
   "commentTranslate.multiLineMerge": true,
-  "cSpell.words": ["newgame", "typemanually", "typemode"],
+  "cSpell.words": ["newgame", "reduxjs", "typemanually", "typemode"],
   "commentTranslate.targetLanguage": "vi",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -59,6 +59,7 @@ class SudokuTable implements TableType {
       checker = this.checkIfSafe(i, j, value);
       // checker === -1 => valid
       if (checker === -1) {
+        // Set this.matrix with new value and isFilledCell in matrix
         this.matrix[i][j].value = value;
         this.matrix[i][j].isFilledCell = isFilledCell;
         return -1;
@@ -195,7 +196,8 @@ class SudokuTable implements TableType {
 
 export default SudokuTable;
 
-export function printSudoku(table: MainData[][]) {
+export function printSudoku(table: MainData[][], line?: string) {
+  console.log(line || '');
   // Number of elements in each row
   const N: number = table[0] ? table[0].length : 0;
   let str: string = '';

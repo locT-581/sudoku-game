@@ -11,9 +11,6 @@ import InputType from 'components/NewgameOption/InputType';
 import Exit from 'components/Exit';
 import Level from 'components/NewgameOption/Level';
 import Input from 'components/Input';
-import { RootState } from 'redux/store';
-import { useAppSelector } from 'redux/hook';
-import { useEffect } from 'react';
 
 // import lazy
 export default function App() {

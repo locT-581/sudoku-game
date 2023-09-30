@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { InitState, MainData } from 'typings/MainData.js';
-// import SudokuTable from 'utils/generateData';
+
+// // get data from local storage
+// const data = localStorage.getItem('data');
+// const matrix = data ? JSON.parse(data) : [];
 
 const initialState: InitState = {
   matrix: [],
@@ -20,6 +23,9 @@ const gameSlice = createSlice({
     stopCounting: (state) => {
       state.isCounting = false;
     },
+    updateError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+    },
     clearError: (state) => {
       state.error = '';
     },
@@ -27,6 +33,11 @@ const gameSlice = createSlice({
 });
 
 const { actions, reducer } = gameSlice;
-export const { clearError, updateData, startCounting, stopCounting } = actions;
-// export const selectData = (state: RootState) => state.game.data;
+export const {
+  updateError,
+  clearError,
+  updateData,
+  startCounting,
+  stopCounting,
+} = actions;
 export default reducer;
