@@ -24,6 +24,7 @@ class SudokuTable implements TableType {
         Array.from({ length: numberOfRow }, () => ({
           value: 0,
           isFilledCell: false,
+          note: [],
         }))
       );
     } else this.matrix = matrix;
@@ -34,6 +35,7 @@ class SudokuTable implements TableType {
       Array.from({ length: this.numberOfRow }, () => ({
         value: 0,
         isFilledCell: true,
+        note: [],
       }))
     );
   }
@@ -129,6 +131,7 @@ class SudokuTable implements TableType {
         this.matrix[row + i][col + j] = {
           value: num,
           isFilledCell: true,
+          note: [],
         };
       }
     }

@@ -26,6 +26,7 @@ export default function checkStringDataAndConvertToMainData(
     Array.from({ length: m }, () => ({
       value: 0,
       isFilledCell: false,
+      note: [],
     }))
   );
 
@@ -39,6 +40,7 @@ export default function checkStringDataAndConvertToMainData(
         table[i][j] = {
           value: Number(matrix[i][j]),
           isFilledCell: Number(matrix[i][j]) !== 0,
+          note: [],
         };
       } else return false;
     }

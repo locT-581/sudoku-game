@@ -36,12 +36,13 @@ function InputType() {
           tableSudokuTemp[i][j] = {
             value: sudoku.matrix[i][j].value,
             isFilledCell: sudoku.matrix[i][j].isFilledCell,
+            note: sudoku.matrix[i][j].note,
           };
         }
       }
       if (solveSudoku(tableSudokuTemp, 0, 0)) {
         tableSudokuTemp = [];
-        dispatch(updateData(sudoku.matrix));
+        dispatch(updateData({ matrix: sudoku.matrix, timer: 0 }));
         navigate('/main/NONE');
       } else {
         console.log('Không có lời giải');

@@ -16,12 +16,12 @@ root.render(
 window.electron.ipcRenderer.on('save-file', () => {
   // get data from local storage
   const data = localStorage.getItem('data');
-  const matrix = data ? JSON.parse(data) : [];
-  if (matrix.length === 0) {
+  const localData = data ? JSON.parse(data) : { matrix: [], timer: 0 };
+  if (localData.matrix.length === 0) {
     console.log('No data to save');
     return;
   }
-  const blob = new Blob([encrypt(JSON.stringify(matrix, null))], {
+  const blob = new Blob([encrypt(JSON.stringify(localData, null))], {
     type: 'text/plain',
   });
   saveFile(blob);

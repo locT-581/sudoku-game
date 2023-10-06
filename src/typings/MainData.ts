@@ -1,7 +1,7 @@
 export interface MainData {
   value: number;
   isFilledCell: boolean;
-  note?: number[];
+  note: number[];
 }
 export interface SolveSudoku {
   grid: MainData[][];
@@ -24,7 +24,7 @@ export interface TableType {
 }
 
 export interface InitState {
-  matrix: MainData[][];
+  data: { matrix: MainData[][]; timer: number };
   isCounting: boolean;
   error?: string;
 }

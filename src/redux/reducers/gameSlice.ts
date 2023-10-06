@@ -6,7 +6,7 @@ import { InitState, MainData } from 'typings/MainData.js';
 // const matrix = data ? JSON.parse(data) : [];
 
 const initialState: InitState = {
-  matrix: [],
+  data: { matrix: [], timer: 0 },
   isCounting: false,
 };
 
@@ -14,8 +14,14 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    updateData: (state, action: PayloadAction<MainData[][]>) => {
-      state.matrix = action.payload;
+    updateData: (
+      state,
+      action: PayloadAction<{ matrix?: MainData[][]; timer?: number }>
+    ) => {
+      state.data = {
+        ...state.data,
+        ...action.payload,
+      };
     },
     startCounting: (state) => {
       state.isCounting = true;

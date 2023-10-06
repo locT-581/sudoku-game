@@ -20,10 +20,12 @@ function ContinueOption() {
   useEffect(() => {
     if (rawData) {
       const data = decrypt(rawData);
-      localStorage.setItem('data', data);
-      const matrix = JSON.parse(data);
-      if (checkMainDataType(matrix)) {
-        dispatch(updateData(matrix));
+      const fileData = JSON.parse(data);
+      localStorage.setItem('data', JSON.stringify(fileData));
+      if (checkMainDataType(fileData.matrix)) {
+        dispatch(
+          updateData({ matrix: fileData.matrix, timer: fileData.timer })
+        );
         navigate('/main/NONE');
       }
     }
@@ -43,9 +45,14 @@ function ContinueOption() {
 
   const handleLastGame = () => {
     // Get data from local storage
+    // If no data, return
     const data = localStorage.getItem('data');
-    const matrix = data ? JSON.parse(data) : [];
-    dispatch(updateData(matrix));
+    if (!data) {
+      console.log('No data on last game');
+      return;
+    }
+    const localData = JSON.parse(data as string);
+    dispatch(updateData(localData));
     navigate('/main/NONE');
   };
 

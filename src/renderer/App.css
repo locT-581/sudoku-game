@@ -11,6 +11,14 @@
 .p-0 {
   padding: 0;
 }
+.border-none {
+  border: 0 !important;
+}
+.note-text {
+  font-size: 0.5rem;
+  color: #fff;
+  text-align: center;
+}
 .wrong-cell {
   background-color: #ff000077 !important;
 }
@@ -107,9 +115,16 @@ a:hover {
   outline: none;
   caret-color: transparent;
 }
+.note {
+  height: 100%;
+}
+.note {
+  height: 100%;
+}
+.note-active,
 input:focus {
   outline: none;
-  background: gray;
+  background-color: gray;
 }
 
 input[type='number']::-webkit-inner-spin-button,

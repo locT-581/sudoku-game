@@ -120,6 +120,7 @@ function Input() {
           tableSudokuTemp[i][j] = {
             value: rawSudoku.current.matrix[i][j].value,
             isFilledCell: rawSudoku.current.matrix[i][j].isFilledCell,
+            note: rawSudoku.current.matrix[i][j].note,
           };
         }
       }
@@ -189,7 +190,7 @@ function Input() {
         }
       }
     }
-    dispatch(updateData(rawSudoku.current.matrix));
+    dispatch(updateData({ matrix: rawSudoku.current.matrix, timer: 0 }));
     navigate('/main/NONE');
   };
 
