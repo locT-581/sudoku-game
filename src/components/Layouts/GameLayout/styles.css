@@ -1,0 +1,105 @@
+.warper-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #3d435b;
+  background-image: url(../../../../assets/background/3.png);
+  background-position: 50% -95px;
+  background-size: cover;
+  background-blend-mode: soft-light;
+}
+.warper-game > main {
+  height: 92%;
+}
+.warper-game > footer {
+  height: 8%;
+}
+.left {
+  width: 13%;
+}
+.left > img {
+  width: 90%;
+  margin: 0 auto;
+}
+.center {
+  margin-top: 10px;
+  width: 74%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.stone {
+  width: 99%;
+  position: absolute;
+}
+.paper {
+  width: 85.5%;
+  position: absolute;
+  top: 47px;
+  left: 38.8px;
+  transform: rotate(0.2deg);
+}
+
+.net {
+  pointer-events: none;
+  width: 72%;
+  position: absolute;
+  top: 72px;
+  left: 95px;
+  z-index: 1;
+  transform: scaleY(1.005);
+  transform: scaleX(-1.005);
+}
+.center > .table {
+  position: absolute;
+  width: 70.9%;
+  top: 75px;
+  left: 100.7px;
+}
+
+.btn-input {
+  position: absolute;
+  width: 80%;
+  bottom: 0;
+  left: 58px;
+  display: flex;
+  justify-content: space-between;
+}
+.btn-input > button {
+  width: 8.2%;
+  font-size: 1.5rem;
+}
+.btn-input > button:hover {
+  transform: scale(1.1);
+}
+.btn-input > button > img {
+  width: 100%;
+}
+.right {
+  width: 13%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.right button {
+  width: 40%;
+}
+.right button > img {
+  width: 100%;
+}
+.group-handle-btn,
+.group-handle-btn > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 1.05rem;
+}
+.group-handle-btn {
+  height: 55%;
+  margin-bottom: -30px;
+}

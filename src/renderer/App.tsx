@@ -1,50 +1,50 @@
+import { Suspense, lazy } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import SpinLoader from 'UI/SpinLoader';
+import { useAppSelector } from 'redux/hook';
+import { RootState } from 'redux/store';
+import bgMusic from '../../assets/music/bg-music.mp3';
 import './App.css';
 
-function Hello() {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-}
+const Home = lazy(() => import('components/Home'));
+const Game = lazy(() => import('components/Game'));
+const ContinueOption = lazy(() => import('components/ContinueOption'));
+const NewGameOption = lazy(() => import('components/NewgameOption'));
+const InputType = lazy(() => import('components/NewgameOption/InputType'));
+const Level = lazy(() => import('components/NewgameOption/Level'));
+const Input = lazy(() => import('components/Input'));
+const Help = lazy(() => import('components/Help'));
 
 export default function App() {
+  const { setting } = useAppSelector((state: RootState) => state.gameSlice);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'F12' || e.key === 'Alt') {
+      e.preventDefault();
+    }
+  });
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <Suspense fallback={<SpinLoader />}>
+      {setting.music && (
+        <audio src={bgMusic} loop autoPlay>
+          <track kind="captions" />
+        </audio>
+      )}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/main-level" element={<Level />} />
+          <Route path="/main/:level" element={<Game />} />
+          <Route path="/typemode" element={<Game />} />
+          <Route path="/continue-option" element={<ContinueOption />} />
+          <Route path="/newgame-option" element={<NewGameOption />} />
+          <Route path="/newgame-option/input-type" element={<InputType />} />
+          <Route path="/help" element={<Help />} />
+          <Route
+            path="/newgame-option/input-type/input-eachcell"
+            element={<Input />}
+          />
+        </Routes>
+      </Router>
+    </Suspense>
   );
 }

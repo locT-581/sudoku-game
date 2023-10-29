@@ -1,0 +1,30 @@
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  appearance: none;
+  position: relative;
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  outline: none;
+  background: none;
+}
+
+.btn-label,
+.button-bg {
+  position: absolute;
+}
+.button-bg {
+  inset: 0;
+}
+.btn-label,
+.btn-label > a {
+  color: var(--Pale-Yellow) !important;
+  text-transform: uppercase;
+}
+.btn-game {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}

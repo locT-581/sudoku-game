@@ -12,7 +12,7 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
+// import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 class AppUpdater {
@@ -23,11 +23,21 @@ class AppUpdater {
   }
 }
 
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: BrowserWindow | null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
+  console.log('main: ', msgTemplate(arg));
+  event.reply('ipc-example', msgTemplate('pong'));
+});
+ipcMain.on('open-github-link', async (event, arg) => {
+  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+  console.log('open-github-link: ', msgTemplate(arg));
+  try {
+    shell.openExternal(arg);
+  } catch (e) {
+    console.log(e);
+  }
   event.reply('ipc-example', msgTemplate('pong'));
 });
 
@@ -71,9 +81,11 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 925,
+    height: 720,
     icon: getAssetPath('icon.png'),
+    autoHideMenuBar: true,
+    resizable: false,
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
@@ -94,12 +106,33 @@ const createWindow = async () => {
     }
   });
 
+  // mainWindow.on('close', (e) => {
+  //   if (mainWindow) {
+  //     const choice = dialog.showMessageBoxSync(mainWindow, {
+  //       type: 'question',
+  //       title: '  Sudoku  ',
+  //       message: 'Do you want to save this game to your computer?',
+  //       buttons: ['Save', "Don't Save", 'Cancel'],
+  //     });
+  //     if (choice === 0) {
+  //       e.preventDefault();
+  //       mainWindow.webContents.send('save-file');
+  //       app.quit();
+  //     } else if (choice === 2) {
+  //       e.preventDefault();
+  //     }
+  //   }
+  // });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  /**
+   * Open if use Menu bar
+   */
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {
@@ -116,7 +149,7 @@ const createWindow = async () => {
  * Add event listeners...
  */
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
   if (process.platform !== 'darwin') {

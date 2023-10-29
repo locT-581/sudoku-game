@@ -1,12 +1,12 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.6.0",
-  "description": "A foundation for scalable desktop apps",
+  "name": "sudoku-game",
+  "version": "1.0.0",
+  "description": "Sudoku Game",
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "name": "LocT",
+    "email": "loct.se581@gmail.com",
+    "url": "https://github.com/locT-581"
   },
   "main": "./dist/main/main.js",
   "scripts": {

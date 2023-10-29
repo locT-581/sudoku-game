@@ -1,0 +1,27 @@
+.header-playing {
+  width: 70%;
+  position: absolute;
+  top: 30px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.mistake {
+  width: 30%;
+  margin-top: 15px;
+  padding-left: 10%;
+  padding-right: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+.timer {
+  width: 40%;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  color: var(--Pale-Yellow);
+  text-align: center;
+  margin-top: -7px;
+}
+.mode {
+  width: 30%;
+}

@@ -1,0 +1,23 @@
+.exit-btn-group {
+  width: 100%;
+  display: flex;
+  padding: 20px 30px 0 50px;
+  justify-content: space-between;
+}
+.exit-btn-group > button {
+  font-size: 1rem;
+  width: 45%;
+}
+.exit-btn-group > button > img {
+  width: 100%;
+}
+.exit-label {
+  padding: 0 40px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 10px;
+  display: block;
+  letter-spacing: 0.15rem;
+}
