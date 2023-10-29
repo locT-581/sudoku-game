@@ -21,6 +21,8 @@ Welcome to Sudoku Game, a desktop application developed by Electron and ReactJs.
 
 [![Figma](https://img.shields.io/badge/Figma-232323?style=for-the-badge&logo=figma)](https://www.figma.com/file/ZDgSiACwATcaH5BQl1Jq4M/Sudoku-Game?type=design&mode=design&t=VlKN4Wjy4fPhS1zt-1)
 
+<a href="https://www.figma.com/file/ZDgSiACwATcaH5BQl1Jq4M/Sudoku-Game?type=design&mode=design&t=VlKN4Wjy4fPhS1zt-1">Open Design</a>
+
 ## 🤖 Features
 
 - Create a new game.
