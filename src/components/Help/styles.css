@@ -1,0 +1,13 @@
+.paragraph {
+  position: absolute;
+  padding: 0 95px;
+  color: black;
+  top: 80px;
+  font-size: 1.3rem;
+}
+.paragraph > p {
+  text-indent: 50px;
+  letter-spacing: 0.1px;
+  opacity: 0;
+  transform: translateY(-20px);
+}

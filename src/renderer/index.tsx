@@ -16,7 +16,9 @@ root.render(
 window.electron.ipcRenderer.on('save-file', () => {
   // get data from local storage
   const data = localStorage.getItem('data');
-  const localData = data ? JSON.parse(data) : { matrix: [], timer: 0 };
+  const localData = data
+    ? JSON.parse(data)
+    : { matrix: [], timer: 0, mistake: 0, level: '' };
   if (localData.matrix.length === 0) {
     console.log('No data to save');
     return;

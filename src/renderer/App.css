@@ -2,6 +2,11 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Fuggles', cursive;
+  font-family: 'Mansalva', cursive;
+}
+:root {
+  --Pale-Yellow: #fefae0;
 }
 
 // Define
@@ -22,55 +27,40 @@
 .wrong-cell {
   background-color: #ff000077 !important;
 }
+.animate-spin {
+  animation: spin 1.2s linear infinite;
 
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+.loader {
+  width: 15%;
+  height: 15%;
+}
 body {
+  height: 100vh;
+  background: rgb(4, 12, 44);
+  background: linear-gradient(
+    322deg,
+    rgba(4, 12, 44, 0.9) 0%,
+    rgba(11, 16, 66, 1) 29%,
+    rgba(28, 60, 108, 1) 65%,
+    rgba(9, 123, 145, 1) 100%
+  );
+  background-repeat: no-repeat;
   position: relative;
   color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
   overflow-y: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
-}
-
-button {
-  width: 40%;
-  margin: 5px 0px;
-  background-color: white;
-  padding: 20px 10px;
-  border-radius: 10px;
-  border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
-  cursor: pointer;
-  opacity: 0.9;
-  outline: none;
-}
-
-button:hover {
-  transform: scale(1.01);
-  opacity: 1;
-}
-
-.btn-game {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-li {
-  list-style: none;
 }
 
 a {
@@ -91,13 +81,14 @@ a:hover {
 
 #root {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .warper {
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -109,26 +100,40 @@ a:hover {
   cursor: pointer;
   width: 100%;
   height: 100%;
+  font-size: 1.5rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: none;
-  outline: none;
-  caret-color: transparent;
 }
 .note {
   height: 100%;
 }
-.note {
-  height: 100%;
+.pass-cell {
+  cursor: default !important;
+  background-color: #28361866 !important;
 }
-.note-active,
-input:focus {
+.active-cell {
   outline: none;
-  background-color: gray;
+  background-color: #dda15e99;
 }
-
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+input {
+  user-select: none;
+}
+.btn:hover {
+  transform: scale(1.05) !important;
+}
+.btn:active {
+  transform: scale(0.95) !important;
+  opacity: 0.6;
+}
+button > img {
+  width: 100%;
 }

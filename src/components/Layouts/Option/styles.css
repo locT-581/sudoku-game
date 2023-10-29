@@ -1,0 +1,42 @@
+.option-btn-group {
+  width: 35%;
+  height: 70%;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.option__btn-bg {
+  height: 43%;
+  position: absolute;
+  margin-left: -5px;
+}
+.option-btn-group > button {
+  width: 54%;
+  font-size: 1.3rem;
+  opacity: 0;
+}
+.option-btn-group > button > img {
+  width: 100%;
+}
+
+.option-btn-opt {
+  width: 59%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.option-btn-opt > button {
+  width: 25%;
+  border: 5px solid #39476699;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.6);
+}
+.option-btn-opt > button > img {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

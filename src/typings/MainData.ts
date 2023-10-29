@@ -24,7 +24,9 @@ export interface TableType {
 }
 
 export interface InitState {
-  data: { matrix: MainData[][]; timer: number };
+  data: { matrix: MainData[][]; timer: number; mistake: number; level: string };
   isCounting: boolean;
   error?: string;
+  activeCell: { row: number; col: number };
+  setting: { music: boolean; sound: boolean };
 }

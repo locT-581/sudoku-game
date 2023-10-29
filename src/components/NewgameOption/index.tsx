@@ -1,19 +1,28 @@
-import Button from 'UI/Button';
 import { Link } from 'react-router-dom';
+import Option from 'components/Layouts/Option';
 
 function NewGameOption() {
   return (
-    <div className="warper">
-      <Link to="/">x</Link>
-      <Link to="/main-level" className="link">
-        <Button>
-          <p>Auto</p>
-        </Button>
-      </Link>
-      <Button>
-        <Link to="/newgame-option/input-type">Nhập các số</Link>
-      </Button>
-    </div>
+    <Option>
+      {[
+        {
+          element: (
+            <Link to="/main-level" className="link">
+              Tự động
+            </Link>
+          ),
+          action: () => {},
+        },
+        {
+          element: (
+            <Link to="/newgame-option/input-type" className="link">
+              Nhập ô số
+            </Link>
+          ),
+          action: () => {},
+        },
+      ]}
+    </Option>
   );
 }
 

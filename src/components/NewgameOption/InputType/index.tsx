@@ -1,13 +1,16 @@
 /* eslint-disable no-plusplus */
-import Button from 'UI/Button';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch } from 'redux/hook';
 import { updateData } from 'redux/reducers/gameSlice';
+
 import { MainData } from 'typings/MainData';
-import checkStringDataAndConvertToMainData from 'utils/checkAndStandardizeSata';
-import SudokuTable from 'utils/generateData';
+
 import solveSudoku from 'utils/solverSudoku';
+import SudokuTable from 'utils/generateData';
+import Option from 'components/Layouts/Option';
+import checkStringDataAndConvertToMainData from 'utils/checkAndStandardizeSata';
 
 function InputType() {
   const navigate = useNavigate();
@@ -42,7 +45,7 @@ function InputType() {
       }
       if (solveSudoku(tableSudokuTemp, 0, 0)) {
         tableSudokuTemp = [];
-        dispatch(updateData({ matrix: sudoku.matrix, timer: 0 }));
+        dispatch(updateData({ matrix: sudoku.matrix, timer: 0, mistake: 0 }));
         navigate('/main/NONE');
       } else {
         console.log('Không có lời giải');
@@ -61,26 +64,38 @@ function InputType() {
       reader.readAsText(file);
     }
   };
+
   return (
-    <div className="warper">
-      <Button onClick={handleOpenFile}>
-        <div>
-          <input
-            type="file"
-            accept=".txt"
-            ref={inputRef}
-            className="hidden"
-            onChange={handleOnChange}
-          />
-          <p>Chọn file</p>
-        </div>
-      </Button>
-      <Link to="/newgame-option/input-type/input-eachcell" className="link">
-        <Button>
-          <p>Nhập thủ công từng ô</p>
-        </Button>
-      </Link>
-    </div>
+    <Option>
+      {[
+        {
+          element: (
+            <div>
+              <input
+                type="file"
+                accept=".txt"
+                ref={inputRef}
+                className="hidden"
+                onChange={handleOnChange}
+              />
+              <p>Thêm file</p>
+            </div>
+          ),
+          action: handleOpenFile,
+        },
+        {
+          element: (
+            <Link
+              to="/newgame-option/input-type/input-eachcell"
+              className="link"
+            >
+              Nhập từng ô
+            </Link>
+          ),
+          action: () => {},
+        },
+      ]}
+    </Option>
   );
 }
 

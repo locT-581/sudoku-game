@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { TableContainer } from '@mui/material';
 
 const CustomTable = styled(TableContainer)(() => ({
-  width: '80vh',
   aspectRatio: '1 / 1',
   overflow: 'hidden',
   margin: '0px -2px',
@@ -16,15 +15,17 @@ const CustomTable = styled(TableContainer)(() => ({
     height: '100%',
     margin: '0px',
     padding: '0px',
-    border: '2px solid #fff',
   },
   '& .MuiTableCell-root': {
+    fontFamily: '"Mansalva", cursive',
+    fontSize: '1.5rem',
     width: 'calc(100% / 9)',
+    height: 'calc(100% / 9)',
     margin: '0px',
     padding: '0px',
-    border: '1px solid #fff',
     textAlign: 'center',
     aspectRatio: '1 / 1',
+    border: 'none',
   },
 }));
 

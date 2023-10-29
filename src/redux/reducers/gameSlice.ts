@@ -5,9 +5,17 @@ import { InitState, MainData } from 'typings/MainData.js';
 // const data = localStorage.getItem('data');
 // const matrix = data ? JSON.parse(data) : [];
 
+// get setting from local storage
+const setting = localStorage.getItem('setting');
+const settingData = setting
+  ? JSON.parse(setting)
+  : { music: true, sound: true };
+
 const initialState: InitState = {
-  data: { matrix: [], timer: 0 },
+  data: { matrix: [], timer: 0, mistake: 0, level: '' },
   isCounting: false,
+  activeCell: { row: 0, col: 0 },
+  setting: settingData,
 };
 
 const gameSlice = createSlice({
@@ -16,7 +24,12 @@ const gameSlice = createSlice({
   reducers: {
     updateData: (
       state,
-      action: PayloadAction<{ matrix?: MainData[][]; timer?: number }>
+      action: PayloadAction<{
+        matrix?: MainData[][];
+        timer?: number;
+        mistake?: number;
+        level?: string;
+      }>
     ) => {
       state.data = {
         ...state.data,
@@ -35,6 +48,21 @@ const gameSlice = createSlice({
     clearError: (state) => {
       state.error = '';
     },
+    updateActiveCell: (
+      state,
+      action: PayloadAction<{ row: number; col: number }>
+    ) => {
+      state.activeCell = action.payload;
+    },
+    updateSetting: (
+      state,
+      action: PayloadAction<{ music?: boolean; sound?: boolean }>
+    ) => {
+      state.setting = {
+        ...state.setting,
+        ...action.payload,
+      };
+    },
   },
 });
 
@@ -45,5 +73,7 @@ export const {
   updateData,
   startCounting,
   stopCounting,
+  updateActiveCell,
+  updateSetting,
 } = actions;
 export default reducer;

@@ -103,7 +103,7 @@ class SudokuTable implements TableType {
    * @param i
    * @param j
    * @param num
-   * @returns -1 if safe, [i, j] if not safe
+   * @returns -1 if safe, else [i, j] is the cell that is not safe
    */
   checkIfSafe(i: number, j: number, num: number): number | number[] {
     const rowChecker = this.unUsedInRow(i, num);

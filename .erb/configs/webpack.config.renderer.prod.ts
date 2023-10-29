@@ -64,7 +64,7 @@ const configuration: webpack.Configuration = {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
       },
-      // Images
+      // Media
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
@@ -86,6 +86,15 @@ const configuration: webpack.Configuration = {
             },
           },
           'file-loader',
+        ],
+      },
+      // Mp3
+      {
+        test: /\.mp3$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
         ],
       },
     ],
