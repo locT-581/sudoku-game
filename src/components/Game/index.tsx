@@ -349,7 +349,7 @@ function Game() {
       }
     };
 
-    // window.addEventListener('blur', handleBlurWindow);
+    window.addEventListener('blur', handleBlurWindow);
     window.addEventListener('keydown', handleKeydown);
 
     return () => {
@@ -513,7 +513,6 @@ function Game() {
       }
       // update in localStorage
       localStorage.setItem('record', JSON.stringify(localData));
-      console.log(data.level);
       console.log('You win!');
       setEndGame({
         title: 'CHÚC MỪNG!',
@@ -824,7 +823,7 @@ function Game() {
                     ? 'Trung bình'
                     : endGame.level === 'HARD'
                     ? 'Khó'
-                    : ''}
+                    : endGame.level}
                 </td>
               </tr>
               <tr>
