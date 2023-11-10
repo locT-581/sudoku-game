@@ -1,6 +1,6 @@
 # SUDOKU GAME
 
-Play Sudoku puzzle offline in your desktop! 🎮
+Play Sudoku puzzle offline on your desktop! 🎮
 
 Welcome to Sudoku Game, a desktop application developed by Electron and ReactJs.
 
