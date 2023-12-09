@@ -8,7 +8,7 @@ export const saveFile = async (blob: any) => {
   const month = date.getMonth();
   const year = date.getFullYear();
   const milliseconds = date.getMilliseconds();
-  a.download = `${day}_${month}_${year}_${milliseconds}.sdk`;
+  a.download = `${day}_${month + 1}_${year}_${milliseconds}.sdk`;
   a.href = URL.createObjectURL(blob);
   // revoke ObjectURL
   a.addEventListener('click', () => {

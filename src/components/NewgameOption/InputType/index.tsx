@@ -11,6 +11,10 @@ import solveSudoku from 'utils/solverSudoku';
 import SudokuTable from 'utils/generateData';
 import Option from 'components/Layouts/Option';
 import checkStringDataAndConvertToMainData from 'utils/checkAndStandardizeSata';
+import { Dialog } from '@mui/material';
+import Button from 'UI/Button';
+
+import btnLong from '../../../../assets/buttons/bg-long.svg';
 
 function InputType() {
   const navigate = useNavigate();
@@ -22,6 +26,8 @@ function InputType() {
   const handleOpenFile = () => {
     inputRef.current?.click();
   };
+
+  const [openError, setOpenError] = React.useState(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -50,6 +56,8 @@ function InputType() {
       } else {
         console.log('Không có lời giải');
       }
+    } else {
+      setOpenError(true);
     }
   }, [rawData, inputRef.current?.value, dispatch, navigate]);
 
@@ -65,37 +73,102 @@ function InputType() {
     }
   };
 
+  const handleCloseError = () => {
+    setOpenError(false);
+  };
+
   return (
-    <Option>
-      {[
-        {
-          element: (
-            <div>
-              <input
-                type="file"
-                accept=".txt"
-                ref={inputRef}
-                className="hidden"
-                onChange={handleOnChange}
-              />
-              <p>Thêm file</p>
-            </div>
-          ),
-          action: handleOpenFile,
-        },
-        {
-          element: (
-            <Link
-              to="/newgame-option/input-type/input-eachcell"
-              className="link"
-            >
-              Nhập từng ô
-            </Link>
-          ),
-          action: () => {},
-        },
-      ]}
-    </Option>
+    <>
+      <Dialog
+        open={openError}
+        onClose={handleCloseError}
+        aria-labelledby="error"
+        aria-describedby="error"
+        PaperProps={{
+          style: {
+            display: 'flex',
+            position: 'relative',
+            margin: '0',
+            width: '43%',
+            height: '25%',
+            background: 'none',
+            boxShadow: 'none',
+            alignItems: 'center',
+          },
+        }}
+      >
+        <p
+          style={{
+            position: 'absolute',
+            zIndex: '1',
+            fontSize: '1.4rem',
+            color: 'var(--Pale-Yellow)',
+            textAlign: 'center',
+            padding: '0 60px',
+            marginTop: '40px',
+          }}
+        >
+          Dữ liệu không hợp lệ!
+        </p>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img
+            src={btnLong}
+            alt="sudoku-game"
+            style={{
+              width: '100%',
+              position: 'absolute',
+              marginLeft: '-15px',
+            }}
+          />
+          <Button
+            bg="1"
+            style={{ width: '30%', marginTop: '70px' }}
+            onClick={handleCloseError}
+          >
+            <p>Đồng ý</p>
+          </Button>
+        </div>
+      </Dialog>
+
+      <Option>
+        {[
+          {
+            element: (
+              <div>
+                <input
+                  type="file"
+                  accept=".txt"
+                  ref={inputRef}
+                  className="hidden"
+                  onChange={handleOnChange}
+                />
+                <p>Thêm file</p>
+              </div>
+            ),
+            action: handleOpenFile,
+          },
+          {
+            element: (
+              <Link
+                to="/newgame-option/input-type/input-eachcell"
+                className="link"
+              >
+                Nhập từng ô
+              </Link>
+            ),
+            action: () => {},
+          },
+        ]}
+      </Option>
+    </>
   );
 }
 

@@ -886,7 +886,12 @@ function Game() {
               >
                 {row.map((cell, j) => (
                   <TableCell
-                    className="cell"
+                    className={`cell ${
+                      !rawSudoku.current.matrix[i][j].isFilledCell &&
+                      rawSudoku.current.matrix[i][j].value
+                        ? 'pass-cell'
+                        : ''
+                    }`}
                     sx={{
                       position: 'relative',
                       backgroundColor: cell.isFilledCell

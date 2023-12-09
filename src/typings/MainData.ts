@@ -3,6 +3,7 @@ export interface MainData {
   isFilledCell: boolean;
   note: number[];
 }
+
 export interface SolveSudoku {
   grid: MainData[][];
   solved: boolean;
@@ -22,6 +23,7 @@ export interface TableType {
   ): number | number[];
   removeKDigits(k: number): MainData[][];
 }
+// Hãy giới thiệu về TableType
 
 export interface InitState {
   data: { matrix: MainData[][]; timer: number; mistake: number; level: string };
