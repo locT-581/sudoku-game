@@ -23,7 +23,6 @@ export interface TableType {
   ): number | number[];
   removeKDigits(k: number): MainData[][];
 }
-// Hãy giới thiệu về TableType
 
 export interface InitState {
   data: { matrix: MainData[][]; timer: number; mistake: number; level: string };
