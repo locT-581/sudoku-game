@@ -38,7 +38,7 @@ Welcome to Sudoku Game, a desktop application developed by Electron and ReactJs.
 - Turn on/off game sound.
 
 ## 📸 Game Screen
-
+![video-demo](.github/ScreenShot/video-demo.mp4)
 <video autoplay>
   <source src=".github/ScreenShot/video-demo.mp4" type="video/mp4">
 </video>
