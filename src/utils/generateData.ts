@@ -197,8 +197,6 @@ class SudokuTable implements TableType {
   }
 }
 
-export default SudokuTable;
-
 export function printSudoku(table: MainData[][], line?: string) {
   console.log(line || '');
   // Number of elements in each row
@@ -214,3 +212,5 @@ export function printSudoku(table: MainData[][], line?: string) {
   }
   console.log('-----------------');
 }
+
+export default SudokuTable;

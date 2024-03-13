@@ -35,6 +35,7 @@ function Input() {
   const dispatch = useAppDispatch();
   const { activeCell } = useAppSelector((state: RootState) => state.gameSlice);
   const [open, setOpen] = React.useState(false);
+
   const positionActiveCell = useRef({
     row: activeCell.row,
     col: activeCell.col,

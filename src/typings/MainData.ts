@@ -8,6 +8,7 @@ export interface SolveSudoku {
   grid: MainData[][];
   solved: boolean;
 }
+
 export interface TableType {
   matrix: MainData[][];
   numberOfRow: number;

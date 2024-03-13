@@ -51,7 +51,14 @@ function InputType() {
       }
       if (solveSudoku(tableSudokuTemp, 0, 0)) {
         tableSudokuTemp = [];
-        dispatch(updateData({ matrix: sudoku.matrix, timer: 0, mistake: 0 }));
+        dispatch(
+          updateData({
+            matrix: sudoku.matrix,
+            timer: 0,
+            mistake: 0,
+            level: '',
+          })
+        );
         navigate('/main/NONE');
       } else {
         console.log('Không có lời giải');

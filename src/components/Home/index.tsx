@@ -22,6 +22,7 @@ function Home() {
   const dispatch = useAppDispatch();
   const [scope, animate] = useAnimate();
   const [openExitDialog, setOpenExitDialog] = useState(false);
+
   useEffect(() => {
     animate([
       [
@@ -77,6 +78,7 @@ function Home() {
       ],
     ]);
   }, [animate]);
+
   const handleOpenExitDialog = () => {
     setOpenExitDialog(true);
   };
@@ -116,6 +118,11 @@ function Home() {
   };
   return (
     <div className="warper warper-home" ref={scope}>
+      <iframe
+        className="effect"
+        title="effect"
+        src="https://lottie.host/embed/8844739b-2029-48f6-90e9-887b41aba0ad/L5l11EYUU7.json"
+      />
       <header>
         <img
           style={{ transform: 'translateY(-220px)', opacity: 0 }}

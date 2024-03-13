@@ -16,7 +16,7 @@ const Input = lazy(() => import('components/Input'));
 const Help = lazy(() => import('components/Help'));
 
 export default function App() {
-  const { setting } = useAppSelector((state: RootState) => state.gameSlice);
+  // const { setting } = useAppSelector((state: RootState) => state.gameSlice);
   window.addEventListener('keydown', (e) => {
     if (e.key === 'F12' || e.key === 'Alt') {
       e.preventDefault();
@@ -24,11 +24,6 @@ export default function App() {
   });
   return (
     <Suspense fallback={<SpinLoader />}>
-      {setting.music && (
-        <audio src={bgMusic} loop autoPlay>
-          <track kind="captions" />
-        </audio>
-      )}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
