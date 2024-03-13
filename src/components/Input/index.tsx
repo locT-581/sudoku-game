@@ -54,8 +54,7 @@ function Input() {
 
   const drawWrongCell = () => {
     // remove all class wrong-cell
-    const wrongCells: NodeListOf<HTMLElement> =
-      document.querySelectorAll('.wrong-cell');
+    const wrongCells = document.querySelectorAll('.wrong-cell');
     wrongCells.forEach((cell) => {
       cell.classList.remove('wrong-cell');
     });
@@ -197,8 +196,7 @@ function Input() {
   // If activeCell change, then change add class active-cell for cell
   useEffect(() => {
     // delete all class active-cell
-    const activeCells: NodeListOf<HTMLElement> =
-      document.querySelectorAll('.active-cell');
+    const activeCells = document.querySelectorAll('.active-cell');
     activeCells.forEach((cell) => {
       cell.classList.remove('active-cell');
     });
@@ -214,10 +212,9 @@ function Input() {
     // Reset wrongCell
     wrongCell.current.clear();
     // Reset input value
-    const inputCells: NodeListOf<HTMLInputElement> =
-      document.querySelectorAll('.input-cell');
+    const inputCells = document.querySelectorAll('.input-cell');
     inputCells.forEach((input) => {
-      input.innerText = '';
+      (input as HTMLInputElement).value = '';
     });
     // Empty matrix
     rawSudoku.current.emptyMatrix();

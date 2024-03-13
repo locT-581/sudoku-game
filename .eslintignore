@@ -33,3 +33,8 @@ npm-debug.log.*
 !.erb
 
 *.html
+
+.eslintrc.js
+ios/
+android/
+*.config.js
