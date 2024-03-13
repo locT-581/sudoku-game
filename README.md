@@ -39,7 +39,9 @@ Welcome to Sudoku Game, a desktop application developed by Electron and ReactJs.
 
 ## 📸 Game Screen
 
-<img src='.github/ScreenShot/Home.jpeg'/>
+
+https://github.com/locT-581/sudoku-game/assets/132336957/d06f8b39-77a2-4fe4-8511-238a1900e852
+
 <table>
   <tr>
     <td><img src=".github/ScreenShot/main-game.jpeg" alt="mockup" /></td>
