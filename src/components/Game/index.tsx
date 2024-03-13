@@ -54,7 +54,7 @@ function Game() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { data, isCounting, activeCell } = useAppSelector(
-    (state: RootState) => state.gameSlice
+    (state: RootState) => state.gameSlice,
   );
   const [mistake, setMistake] = useState(level === 'NONE' ? data.mistake : 0);
 
@@ -78,7 +78,7 @@ function Game() {
    * value: tọa độ của ô đang có màu đỏ(bị trùng hiện tại)
    */
   const wrongCell = useRef<Map<string, { row: string; col: string }>>(
-    new Map()
+    new Map(),
   );
 
   const [timer, setTimer] = useState<number>(level === 'NONE' ? data.timer : 0);
@@ -104,7 +104,7 @@ function Game() {
     // Add class wrong-cell for every cell have id is value of wrongCell.current
     wrongCell.current.forEach((mapValue) => {
       const cell: HTMLElement | null = document.getElementById(
-        `${mapValue.row}-${mapValue.col}`
+        `${mapValue.row}-${mapValue.col}`,
       );
       if (cell) cell.classList.add('wrong-cell');
     });
@@ -136,7 +136,7 @@ function Game() {
     const checker: number | number[] = sudokuUserPlay.current.checkIfSafe(
       Number(row),
       Number(col),
-      Number(value)
+      Number(value),
     );
 
     // CHECK VALID PASS
@@ -161,9 +161,6 @@ function Game() {
 
       // NẾU KHÔNG THỂ GIẢI TIẾP
       if (!solved) {
-        console.log(
-          'There is no further solution if you enter this number here!'
-        );
         setOpenError(true);
         // Add current input to wrongCell
         wrongCell.current.set(`${row}-${col}`, { row, col });
@@ -175,7 +172,7 @@ function Game() {
           Number(row),
           Number(col),
           Number(value),
-          false
+          false,
         );
         // e.classList.remove('wrong-cell');
         // Edit useState to rerender in react
@@ -227,7 +224,7 @@ function Game() {
       rawSudoku.current.fillValues();
       // remove k digits from raw sudoku and assign to sudokuRemoved
       sudokuRemoved.current.matrix = rawSudoku.current.removeKDigits(
-        Difficulty[level as keyof typeof Difficulty]
+        Difficulty[level as keyof typeof Difficulty],
       );
       dispatch(updateData({ level, mistake: 0, timer: 0 }));
     }
@@ -276,7 +273,7 @@ function Game() {
         ].note = [];
 
         const inputCell = document.querySelector(
-          `#input-${positionActiveCell.current.row}-${positionActiveCell.current.col} > span`
+          `#input-${positionActiveCell.current.row}-${positionActiveCell.current.col} > span`,
         ) as HTMLElement;
         if (inputCell) {
           if (inputCell.innerText === e.key) return;
@@ -287,10 +284,10 @@ function Game() {
               positionActiveCell.current.row,
               positionActiveCell.current.col,
               0,
-              false
+              false,
             );
             wrongCell.current.delete(
-              `${positionActiveCell.current.row}-${positionActiveCell.current.col}`
+              `${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
             );
             drawWrongCell();
             // Remove class wrong-cell
@@ -311,8 +308,8 @@ function Game() {
             inputCell.innerText = e.key;
             onChange(
               document.getElementById(
-                `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`
-              )
+                `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
+              ),
             );
           }
         }
@@ -334,7 +331,7 @@ function Game() {
           // Remove number from note
           sudokuUserPlay.current.matrix[row][col].note =
             sudokuUserPlay.current.matrix[row][col].note?.filter(
-              (n) => n !== Number(e.key)
+              (n) => n !== Number(e.key),
             );
         } else {
           // Add number to note
@@ -367,7 +364,7 @@ function Game() {
       cell.classList.remove('active-cell');
     });
     const cell: HTMLElement | null = document.getElementById(
-      `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`
+      `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
     );
     if (cell) cell.classList.add('active-cell');
   }, [positionActiveCell.current]);
@@ -381,11 +378,11 @@ function Game() {
         timer,
         mistake,
         level: data.level,
-      })
+      }),
     );
     if (mistake >= 3) {
       dispatch(stopCounting());
-      console.log('You lose!');
+
       // get data from local storage
       const record = localStorage.getItem('record');
       const localData = record
@@ -406,18 +403,18 @@ function Game() {
           data.level === ''
             ? 'Chế độ tùy chọn'
             : localData[data.level.toLowerCase()] === 0
-            ? 'Chưa có kỷ lục'
-            : `${Math.floor(localData[data.level.toLowerCase()] / 3600)
-                .toString()
-                .padStart(2, '0')}:${Math.floor(
-                (localData[data.level.toLowerCase()] % 3600) / 60
-              )
-                .toString()
-                .padStart(2, '0')}:${Math.floor(
-                localData[data.level.toLowerCase()] % 60
-              )
-                .toString()
-                .padStart(2, '0')}`,
+              ? 'Chưa có kỷ lục'
+              : `${Math.floor(localData[data.level.toLowerCase()] / 3600)
+                  .toString()
+                  .padStart(2, '0')}:${Math.floor(
+                  (localData[data.level.toLowerCase()] % 3600) / 60,
+                )
+                  .toString()
+                  .padStart(2, '0')}:${Math.floor(
+                  localData[data.level.toLowerCase()] % 60,
+                )
+                  .toString()
+                  .padStart(2, '0')}`,
       });
       setOpenEndGame(true);
     }
@@ -437,7 +434,7 @@ function Game() {
               timer,
               mistake,
               level: data.level,
-            })
+            }),
           );
           return prev + 1;
         });
@@ -471,11 +468,11 @@ function Game() {
         timer,
         mistake,
         level: data.level,
-      })
+      }),
     );
     // Update data in redux
     dispatch(
-      updateData({ matrix: newTableSudoku, timer, mistake, level: data.level })
+      updateData({ matrix: newTableSudoku, timer, mistake, level: data.level }),
     );
 
     // Check if user win
@@ -513,7 +510,6 @@ function Game() {
       }
       // update in localStorage
       localStorage.setItem('record', JSON.stringify(localData));
-      console.log('You win!');
       setEndGame({
         title: 'CHÚC MỪNG!',
         content: 'BẠN ĐÃ HOÀN THÀNH TRÒ CHƠI!',
@@ -529,18 +525,18 @@ function Game() {
           data.level === ''
             ? 'Chế độ tùy chọn'
             : localData[data.level.toLowerCase()] === 0
-            ? 'Chưa có kỷ lục'
-            : `${Math.floor(localData[data.level.toLowerCase()] / 3600)
-                .toString()
-                .padStart(2, '0')}:${Math.floor(
-                (localData[data.level.toLowerCase()] % 3600) / 60
-              )
-                .toString()
-                .padStart(2, '0')}:${Math.floor(
-                localData[data.level.toLowerCase()] % 60
-              )
-                .toString()
-                .padStart(2, '0')}`,
+              ? 'Chưa có kỷ lục'
+              : `${Math.floor(localData[data.level.toLowerCase()] / 3600)
+                  .toString()
+                  .padStart(2, '0')}:${Math.floor(
+                  (localData[data.level.toLowerCase()] % 3600) / 60,
+                )
+                  .toString()
+                  .padStart(2, '0')}:${Math.floor(
+                  localData[data.level.toLowerCase()] % 60,
+                )
+                  .toString()
+                  .padStart(2, '0')}`,
       });
       setOpenEndGame(true);
     }
@@ -576,7 +572,7 @@ function Game() {
       rawSudoku.current.fillValues();
       // Copy raw sudoku to sudokuRemoved
       sudokuRemoved.current.matrix = rawSudoku.current.removeKDigits(
-        Difficulty[data.level as keyof typeof Difficulty]
+        Difficulty[data.level as keyof typeof Difficulty],
       );
       // Copy sudokuRemoved to sudokuUserPlay
       for (let i = 0; i < 9; i++) {
@@ -674,7 +670,6 @@ function Game() {
       ? JSON.parse(dataItem)
       : { matrix: [], timer: 0, mistake: 0, level: '' };
     if (localData.matrix.length === 0) {
-      console.log('No data to save');
       return;
     }
     const blob = new Blob([encrypt(JSON.stringify(localData, null))], {
@@ -687,7 +682,7 @@ function Game() {
     window.dispatchEvent(
       new KeyboardEvent('keydown', {
         key: 'Backspace',
-      })
+      }),
     );
   };
 
@@ -820,10 +815,10 @@ function Game() {
                   {endGame.level === 'EASY'
                     ? 'Dễ'
                     : endGame.level === 'MEDIUM'
-                    ? 'Trung bình'
-                    : endGame.level === 'HARD'
-                    ? 'Khó'
-                    : endGame.level}
+                      ? 'Trung bình'
+                      : endGame.level === 'HARD'
+                        ? 'Khó'
+                        : endGame.level}
                 </td>
               </tr>
               <tr>

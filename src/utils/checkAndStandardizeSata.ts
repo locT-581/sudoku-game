@@ -7,10 +7,9 @@ import { MainData } from 'typings/MainData';
  * @returns MainData[][] or false
  */
 export default function checkStringDataAndConvertToMainData(
-  data: any
+  data: any,
 ): boolean | MainData[][] {
   if (typeof data !== 'string') {
-    console.log('data is not string');
     return false;
   }
   const lines = data.split('\n');
@@ -27,12 +26,11 @@ export default function checkStringDataAndConvertToMainData(
       value: 0,
       isFilledCell: false,
       note: [],
-    }))
+    })),
   );
 
   for (let i = 0; i < m; i++) {
     if (matrix[i].length !== n) {
-      console.log('matrix is not square');
       return false;
     }
     for (let j = 0; j < n; j++) {
@@ -55,7 +53,6 @@ export default function checkStringDataAndConvertToMainData(
  */
 export function checkMainDataType(data: MainData[][]): boolean | MainData[][] {
   if (!Array.isArray(data)) {
-    console.log('data is not array');
     return false;
   }
   const m = 9;
@@ -68,11 +65,9 @@ export function checkMainDataType(data: MainData[][]): boolean | MainData[][] {
     // Check if value is number and isFilledCell is boolean
     for (let j = 0; j < m; j++) {
       if (typeof data[i][j].value !== 'number') {
-        console.log('value is not number');
         return false;
       }
       if (typeof data[i][j].isFilledCell !== 'boolean') {
-        console.log('Invalid data type');
         return false;
       }
     }

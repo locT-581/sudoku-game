@@ -37,7 +37,7 @@ function ContinueOption() {
             timer: fileData.timer,
             mistake: fileData.mistake,
             level: fileData.level,
-          })
+          }),
         );
         navigate('/main/NONE');
       }
@@ -62,7 +62,7 @@ function ContinueOption() {
     const data = localStorage.getItem('data');
     if (!data) {
       setOpen(true);
-      console.log('No data on last game');
+      // console.log('No data on last game');
       return;
     }
     const localData = JSON.parse(data as string);

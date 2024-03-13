@@ -1,9 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import SpinLoader from 'UI/SpinLoader';
-import { useAppSelector } from 'redux/hook';
-import { RootState } from 'redux/store';
-import bgMusic from '../../assets/music/bg-music.mp3';
 import './App.css';
 
 const Home = lazy(() => import('components/Home'));

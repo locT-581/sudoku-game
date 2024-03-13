@@ -57,11 +57,9 @@ function InputType() {
             timer: 0,
             mistake: 0,
             level: '',
-          })
+          }),
         );
         navigate('/main/NONE');
-      } else {
-        console.log('Không có lời giải');
       }
     } else {
       setOpenError(true);

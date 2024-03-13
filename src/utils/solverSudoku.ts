@@ -7,7 +7,7 @@ import { MainData } from 'typings/MainData';
 function unUsedInRow(
   matrix: MainData[][],
   i: number,
-  num: number
+  num: number,
 ): number | number[] {
   const numberOfRow = matrix[0].length;
   for (let j = 0; j < numberOfRow; j++)
@@ -19,7 +19,7 @@ function unUsedInRow(
 function unUsedInCol(
   matrix: MainData[][],
   j: number,
-  num: number
+  num: number,
 ): number | number[] {
   const numberOfRow = matrix[0].length;
   for (let i = 0; i < numberOfRow; i++)
@@ -33,7 +33,7 @@ function unUsedInBox(
   rowStart: number,
   colStart: number,
   num: number,
-  SRN: number
+  SRN: number,
 ): number | number[] {
   for (let i = 0; i < SRN; i++)
     for (let j = 0; j < SRN; j++)
@@ -45,7 +45,7 @@ function checkIfSafe(
   matrix: MainData[][],
   i: number,
   j: number,
-  num: number
+  num: number,
 ): number | number[] {
   const SRN = Math.floor(Math.sqrt(matrix[0].length));
   const rowChecker = unUsedInRow(matrix, i, num);
@@ -59,7 +59,7 @@ function checkIfSafe(
     i - (i % SRN),
     j - (j % SRN),
     num,
-    SRN
+    SRN,
   );
   if (boxChecker !== -1) return boxChecker;
   return -1;
@@ -68,7 +68,7 @@ function checkIfSafe(
 export default function solveSudoku(
   grid: MainData[][],
   row: number,
-  col: number
+  col: number,
 ): boolean {
   const N: number = grid[0].length;
   // Stop

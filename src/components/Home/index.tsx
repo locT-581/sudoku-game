@@ -89,13 +89,13 @@ function Home() {
     // set local storage
     localStorage.setItem(
       'setting',
-      JSON.stringify({ ...setting, music: !setting.music })
+      JSON.stringify({ ...setting, music: !setting.music }),
     );
     dispatch(
       updateSetting({
         ...setting,
         music: !setting.music,
-      })
+      }),
     );
   };
   const [openScoreDialog, setOpenScoreDialog] = useState(false);
@@ -207,7 +207,7 @@ function Home() {
                         : `${Math.floor(score.easy / 3600)
                             .toString()
                             .padStart(2, '0')}:${Math.floor(
-                            (score.easy % 3600) / 60
+                            (score.easy % 3600) / 60,
                           )
                             .toString()
                             .padStart(2, '0')}:${Math.floor(score.easy % 60)
@@ -223,7 +223,7 @@ function Home() {
                         : `${Math.floor(score.medium / 3600)
                             .toString()
                             .padStart(2, '0')}:${Math.floor(
-                            (score.medium % 3600) / 60
+                            (score.medium % 3600) / 60,
                           )
                             .toString()
                             .padStart(2, '0')}:${Math.floor(score.medium % 60)
@@ -239,7 +239,7 @@ function Home() {
                         : `${Math.floor(score.hard / 3600)
                             .toString()
                             .padStart(2, '0')}:${Math.floor(
-                            (score.hard % 3600) / 60
+                            (score.hard % 3600) / 60,
                           )
                             .toString()
                             .padStart(2, '0')}:${Math.floor(score.hard % 60)
@@ -321,7 +321,7 @@ function Home() {
               onClick={() => {
                 window.electron.ipcRenderer.sendMessage(
                   'open-github-link',
-                  'https://github.com/locT-581/sudoku-game'
+                  'https://github.com/locT-581/sudoku-game',
                 );
               }}
             >

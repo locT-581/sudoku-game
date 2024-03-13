@@ -29,7 +29,7 @@ const gameSlice = createSlice({
         timer?: number;
         mistake?: number;
         level?: string;
-      }>
+      }>,
     ) => {
       state.data = {
         ...state.data,
@@ -50,13 +50,13 @@ const gameSlice = createSlice({
     },
     updateActiveCell: (
       state,
-      action: PayloadAction<{ row: number; col: number }>
+      action: PayloadAction<{ row: number; col: number }>,
     ) => {
       state.activeCell = action.payload;
     },
     updateSetting: (
       state,
-      action: PayloadAction<{ music?: boolean; sound?: boolean }>
+      action: PayloadAction<{ music?: boolean; sound?: boolean }>,
     ) => {
       state.setting = {
         ...state.setting,

@@ -10,7 +10,7 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <App />
-  </Provider>
+  </Provider>,
 );
 
 window.electron.ipcRenderer.on('save-file', () => {
@@ -20,7 +20,6 @@ window.electron.ipcRenderer.on('save-file', () => {
     ? JSON.parse(data)
     : { matrix: [], timer: 0, mistake: 0, level: '' };
   if (localData.matrix.length === 0) {
-    console.log('No data to save');
     return;
   }
   const blob = new Blob([encrypt(JSON.stringify(localData, null))], {

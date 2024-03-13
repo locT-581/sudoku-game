@@ -74,13 +74,13 @@ function MenuPlaying({
     // set local storage
     localStorage.setItem(
       'setting',
-      JSON.stringify({ ...setting, music: !setting.music })
+      JSON.stringify({ ...setting, music: !setting.music }),
     );
     dispatch(
       updateSetting({
         ...setting,
         music: !setting.music,
-      })
+      }),
     );
   };
   return (

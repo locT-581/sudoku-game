@@ -25,7 +25,7 @@ class SudokuTable implements TableType {
           value: 0,
           isFilledCell: false,
           note: [],
-        }))
+        })),
       );
     } else this.matrix = matrix;
   }
@@ -36,7 +36,7 @@ class SudokuTable implements TableType {
         value: 0,
         isFilledCell: true,
         note: [],
-      }))
+      })),
     );
   }
 
@@ -51,7 +51,7 @@ class SudokuTable implements TableType {
     i: number,
     j: number,
     value: number,
-    isFilledCell: boolean
+    isFilledCell: boolean,
   ): number | number[] {
     let checker: number | number[] = -1;
     if (value === 0) {
@@ -88,7 +88,7 @@ class SudokuTable implements TableType {
   unUsedInBox(
     rowStart: number,
     colStart: number,
-    num: number
+    num: number,
   ): number | number[] {
     for (let i = 0; i < this.SRN; i++)
       for (let j = 0; j < this.SRN; j++)
@@ -113,7 +113,7 @@ class SudokuTable implements TableType {
     const boxChecker = this.unUsedInBox(
       i - (i % this.SRN),
       j - (j % this.SRN),
-      num
+      num,
     );
     if (boxChecker !== -1) return boxChecker;
 

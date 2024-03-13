@@ -31,7 +31,7 @@ function GameLayout({ children }: GameProps) {
           window.dispatchEvent(
             new KeyboardEvent('keydown', {
               key: value,
-            })
+            }),
           );
       });
     });

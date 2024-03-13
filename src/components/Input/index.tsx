@@ -46,7 +46,7 @@ function Input() {
    * value: tọa độ của ô đang có màu đỏ(bị trùng hiện tại)
    */
   const wrongCell = useRef<Map<string, { row: string; col: string }>>(
-    new Map()
+    new Map(),
   );
   const [tableSudoku, setTableSudoku] = useState<MainData[][]>([]);
   const [openError, setOpenError] = React.useState(false);
@@ -62,14 +62,13 @@ function Input() {
     // Add class wrong-cell for every cell have id is value of wrongCell.current
     wrongCell.current.forEach((mapValue) => {
       const cell: HTMLElement | null = document.getElementById(
-        `${mapValue.row}-${mapValue.col}`
+        `${mapValue.row}-${mapValue.col}`,
       );
       if (cell) cell.classList.add('wrong-cell');
     });
   };
 
   const onChange = (e: HTMLElement): void => {
-    console.log(wrongCell.current);
     // Extract id to get row and col of current cell
     const { id } = e;
     const [tag, row, col] = id.split('-');
@@ -92,7 +91,7 @@ function Input() {
     const checker: number | number[] = rawSudoku.current.checkIfSafe(
       Number(row),
       Number(col),
-      Number(e.innerText)
+      Number(e.innerText),
     );
     // -1 is fine
     if (checker === -1) {
@@ -116,9 +115,6 @@ function Input() {
 
       // If not solved, then add wrong cell
       if (!solved) {
-        console.log(
-          'There is no further solution if you enter this number here!'
-        );
         setError('Nếu đặt số này ở đây, sẽ không thể giải tiếp!');
         setOpenError(true);
         // Add current input to wrongCell
@@ -132,7 +128,7 @@ function Input() {
           Number(row),
           Number(col),
           Number(e.innerText),
-          true
+          true,
         );
         // Edit useState to rerender in react
         setTableSudoku([...rawSudoku.current.matrix]);
@@ -169,7 +165,7 @@ function Input() {
         return;
       }
       const inputCell = document.getElementById(
-        `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`
+        `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
       );
       if (inputCell?.innerText === e.key) return;
       if (inputCell) {
@@ -180,10 +176,10 @@ function Input() {
             positionActiveCell.current.row,
             positionActiveCell.current.col,
             0,
-            false
+            false,
           );
           wrongCell.current.delete(
-            `${positionActiveCell.current.row}-${positionActiveCell.current.col}`
+            `${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
           );
           drawWrongCell();
         } else {
@@ -207,7 +203,7 @@ function Input() {
       cell.classList.remove('active-cell');
     });
     const cell: HTMLElement | null = document.getElementById(
-      `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`
+      `input-${positionActiveCell.current.row}-${positionActiveCell.current.col}`,
     );
     if (cell) {
       cell.classList.add('active-cell');
@@ -230,7 +226,6 @@ function Input() {
 
   const handleSubmit = () => {
     if (wrongCell.current.size > 0) {
-      console.log('Sudoku is not valid!');
       setError('Sudoku không hợp lệ!');
       setOpenError(true);
       return;
@@ -248,7 +243,7 @@ function Input() {
         timer: 0,
         mistake: 0,
         level: '',
-      })
+      }),
     );
     navigate('/main/NONE');
   };
@@ -273,7 +268,7 @@ function Input() {
     window.dispatchEvent(
       new KeyboardEvent('keydown', {
         key: 'Backspace',
-      })
+      }),
     );
   };
   return (

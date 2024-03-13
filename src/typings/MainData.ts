@@ -20,7 +20,7 @@ export interface TableType {
     i: number,
     j: number,
     value: number,
-    isFilledCell?: boolean
+    isFilledCell?: boolean,
   ): number | number[];
   removeKDigits(k: number): MainData[][];
 }
