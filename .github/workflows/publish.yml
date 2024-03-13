@@ -36,7 +36,7 @@ jobs:
       - name: Publish releases
         env:
           # This is used for uploading release assets to github
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          echo "Value of my_variable is ${{ secrets.GITHUB_TOKEN }}"
+          echo "Value of my_variable is ${{ secrets.GH_TOKEN }}"
           npm exec electron-builder -- --publish always --win --mac --linux
